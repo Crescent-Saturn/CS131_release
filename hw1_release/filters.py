@@ -19,11 +19,24 @@ def conv_nested(image, kernel):
     Hk, Wk = kernel.shape
     out = np.zeros((Hi, Wi))
 
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    # YOUR CODE HERE
+    for i in range(Hi):
+        for j in range(Wi):
+            for m in range(Hk):
+                mm = Hk - 1 - m
+                for n in range(Wk):
+                    nn = Wk - 1 - n
+
+                    ii = i + (m - Hk // 2)
+                    jj = j + (n - Wk // 2)
+
+                    if ii >= 0 and ii < Hi and jj >= 0 and jj < Wi:
+                        out[i, j] = image(ii, jj) * kernel(mm, nn)
+
+    # END YOUR CODE
 
     return out
+
 
 def zero_pad(image, pad_height, pad_width):
     """ Zero-pad an image.
@@ -46,9 +59,9 @@ def zero_pad(image, pad_height, pad_width):
     H, W = image.shape
     out = None
 
-    ### YOUR CODE HERE
+    # YOUR CODE HERE
     pass
-    ### END YOUR CODE
+    # END YOUR CODE
     return out
 
 
@@ -75,11 +88,12 @@ def conv_fast(image, kernel):
     Hk, Wk = kernel.shape
     out = np.zeros((Hi, Wi))
 
-    ### YOUR CODE HERE
+    # YOUR CODE HERE
     pass
-    ### END YOUR CODE
+    # END YOUR CODE
 
     return out
+
 
 def conv_faster(image, kernel):
     """
@@ -94,11 +108,12 @@ def conv_faster(image, kernel):
     Hk, Wk = kernel.shape
     out = np.zeros((Hi, Wi))
 
-    ### YOUR CODE HERE
+    # YOUR CODE HERE
     pass
-    ### END YOUR CODE
+    # END YOUR CODE
 
     return out
+
 
 def cross_correlation(f, g):
     """ Cross-correlation of f and g
@@ -114,11 +129,12 @@ def cross_correlation(f, g):
     """
 
     out = None
-    ### YOUR CODE HERE
+    # YOUR CODE HERE
     pass
-    ### END YOUR CODE
+    # END YOUR CODE
 
     return out
+
 
 def zero_mean_cross_correlation(f, g):
     """ Zero-mean cross-correlation of f and g
@@ -134,11 +150,12 @@ def zero_mean_cross_correlation(f, g):
     """
 
     out = None
-    ### YOUR CODE HERE
+    # YOUR CODE HERE
     pass
-    ### END YOUR CODE
+    # END YOUR CODE
 
     return out
+
 
 def normalized_cross_correlation(f, g):
     """ Normalized cross-correlation of f and g
@@ -155,8 +172,8 @@ def normalized_cross_correlation(f, g):
     """
 
     out = None
-    ### YOUR CODE HERE
+    # YOUR CODE HERE
     pass
-    ### END YOUR CODE
+    # END YOUR CODE
 
     return out
