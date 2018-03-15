@@ -88,7 +88,8 @@ def partial_x(img):
     out = None
 
     # YOUR CODE HERE
-    pass
+    k_x = np.array([[1, 0, -1]]) / 2
+    out = conv(img, k_x)
     # END YOUR CODE
 
     return out
@@ -109,7 +110,8 @@ def partial_y(img):
     out = None
 
     # YOUR CODE HERE
-    pass
+    k_y = (np.array([[1, 0, -1]]) / 2).T
+    out = conv(img, k_y)
     # END YOUR CODE
 
     return out
@@ -131,7 +133,11 @@ def gradient(img):
     theta = np.zeros(img.shape)
 
     # YOUR CODE HERE
-    pass
+    Gx = partial_x(img)
+    Gy = partial_y(img)
+    G = np.sqrt(Gx**2 + Gy**2)
+    theta = np.arctan2(Gy, Gx)
+
     # END YOUR CODE
 
     return G, theta
