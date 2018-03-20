@@ -267,9 +267,12 @@ def link_edges(strong_edges, weak_edges):
     for y, x in indices:
         neighbors = get_neighbors(y, x, H, W)
         # print(neighbors)
-    for i, j in neighbors:
-        if weak_edges[i, j]:
-            edges[i, j] = 1
+
+        for i, j in neighbors:
+            # print(i, j)
+            if weak_edges[i, j]:  # == 1:
+                # print(i, j)
+                edges[i, j] = 1.0
     # print(neighbors)
     #edges[:] = strong_edges[:]
     # for i, j in neighbors:
