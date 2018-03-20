@@ -266,9 +266,16 @@ def link_edges(strong_edges, weak_edges):
     # YOUR CODE HERE
     for y, x in indices:
         neighbors = get_neighbors(y, x, H, W)
-    print(neighbors)
+        # print(neighbors)
     for i, j in neighbors:
-        edges[i, j] = 1
+        if weak_edges[i, j]:
+            edges[i, j] = 1
+    # print(neighbors)
+    #edges[:] = strong_edges[:]
+    # for i, j in neighbors:
+        #edges[i, j] = 1
+
+    edges += strong_edges
     # END YOUR CODE
 
     return edges
@@ -288,7 +295,12 @@ def canny(img, kernel_size=5, sigma=1.4, high=20, low=15):
     """
     edge = np.zeros(img.shape)
     # YOUR CODE HERE
-    pass
+    kernel = gaussian_kernel(kernel_size, sigma)
+    img = conv(img, kernel)
+    G, theta = gradient(img)
+    nms = non_maximum_suppression(G, theta)
+    strong_edges, weak_edges = double_thresholding(nms, high, low)
+    edge = link_edges(strong_edges, weak_edges)
     # END YOUR CODE
 
     return edge
