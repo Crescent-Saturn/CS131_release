@@ -343,7 +343,14 @@ def hough_transform(img):
     # Find rho corresponding to values in thetas
     # and increment the accumulator in the corresponding coordiate.
     # YOUR CODE HERE
-    pass
+    for i in range(len(xs)):
+        x = xs[i]
+        y = ys[i]
+
+        for theta_in in range(num_thetas):
+            rho = int(x * cos_t[theta_in] + y * sin_t[theta_in]) + diag_len
+            # print(rho)
+            accumulator[rho, theta_in] += 1
     # END YOUR CODE
 
     return accumulator, rhos, thetas
