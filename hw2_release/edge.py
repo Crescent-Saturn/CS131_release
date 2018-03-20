@@ -76,7 +76,7 @@ def gaussian_kernel(size, sigma):
 def partial_x(img):
     """ Computes partial x-derivative of input img.
 
-    Hints: 
+    Hints:
         - You may use the conv function in defined in this file.
 
     Args:
@@ -98,7 +98,7 @@ def partial_x(img):
 def partial_y(img):
     """ Computes partial y-derivative of input img.
 
-    Hints: 
+    Hints:
         - You may use the conv function in defined in this file.
 
     Args:
@@ -137,6 +137,7 @@ def gradient(img):
     Gy = partial_y(img)
     G = np.sqrt(Gx**2 + Gy**2)
     theta = np.arctan2(abs(Gy), abs(Gx))
+
     # END YOUR CODE
 
     return G, theta
@@ -164,19 +165,19 @@ def non_maximum_suppression(G, theta):
     # BEGIN YOUR CODE
     for i in range(G.shape[0]):
         for j in range(G.shape[1]):
-            if (i-1)>=0 and (i+1)<G.shape[0] and (j-1)>=0 and (j+1)<G.shape[1]:
-                if theta[i,j] == 0.0:
-                    if G[i,j]>=G[i,j-1] and G[i,j]>=G[i,j+1]:
-                        out[i,j] = G[i,j]
-                if theta[i,j] == 45.0:
-                    if G[i,j]>=G[i-1,j+1] and G[i,j]>=G[i+1,j-1]:
-                        out[i,j] = G[i,j]
-                if theta[i,j] == 90.0:
-                    if G[i,j]>=G[i-1,j] and G[i,j]>=G[i+1,j]:
-                        out[i,j] = G[i,j]
-                if theta[i,j] == 135.0:
-                    if G[i,j]>=G[i-1,j-1] and G[i,j]>=G[i+1,j+1]:
-                        out[i,j] = G[i,j]
+            if (i - 1) >= 0 and (i + 1) < G.shape[0] and (j - 1) >= 0 and (j + 1) < G.shape[1]:
+                if theta[i, j] == 0.0:
+                    if G[i, j] >= G[i, j - 1] and G[i, j] >= G[i, j + 1]:
+                        out[i, j] = G[i, j]
+                if theta[i, j] == 45.0:
+                    if G[i, j] >= G[i - 1, j + 1] and G[i, j] >= G[i + 1, j - 1]:
+                        out[i, j] = G[i, j]
+                if theta[i, j] == 90.0:
+                    if G[i, j] >= G[i - 1, j] and G[i, j] >= G[i + 1, j]:
+                        out[i, j] = G[i, j]
+                if theta[i, j] == 135.0:
+                    if G[i, j] >= G[i - 1, j - 1] and G[i, j] >= G[i + 1, j + 1]:
+                        out[i, j] = G[i, j]
             # END YOUR CODE
 
     return out
@@ -204,14 +205,14 @@ def double_thresholding(img, high, low):
     # YOUR CODE HERE
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
-            if img[i,j] >= high:
-                strong_edges[i,j] = 1
-            elif img[i,j] >= low:
-                weak_edges[i,j] = 1
+            if img[i, j] >= high:
+                strong_edges[i, j] = 1
+            elif img[i, j] >= low:
+                weak_edges[i, j] = 1
             # else:
-                # pass
+            #     pass
     # END YOUR CODE
-
+    # print(strong_edges & & weak_edges)
     return strong_edges, weak_edges
 
 
@@ -261,9 +262,13 @@ def link_edges(strong_edges, weak_edges):
     H, W = strong_edges.shape
     indices = np.stack(np.nonzero(strong_edges)).T
     edges = np.zeros((H, W))
-
+    # print(indices)
     # YOUR CODE HERE
-    pass
+    for y, x in indices:
+        neighbors = get_neighbors(y, x, H, W)
+    print(neighbors)
+    for i, j in neighbors:
+        edges[i, j] = 1
     # END YOUR CODE
 
     return edges
@@ -281,6 +286,7 @@ def canny(img, kernel_size=5, sigma=1.4, high=20, low=15):
     Returns:
         edge: numpy array of shape(H, W)
     """
+    edge = np.zeros(img.shape)
     # YOUR CODE HERE
     pass
     # END YOUR CODE
